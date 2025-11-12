@@ -22,7 +22,6 @@ position_of_first_dot = email.find(".")
 position_of_last_dot = email.rfind(".")
 position_of_first_dot_after_the_at = email.find(".", position_of_at)
 
-
 error_message_no_at = "An email address has to contain a '@' character!"
 error_message_too_many_at = "An email address cannot contain more than one '@' characters!"
 error_message_no_dot = "An email address has to contain at least one '.' character!"
@@ -36,3 +35,50 @@ error_message_invalid_username = "The username cannot start with a '.' character
 
 ok_message = "Valid email address :)"
 is_valid = True
+
+if number_of_at_characters == 0:
+    print(error_message_no_at)
+    is_valid = False
+
+elif number_of_at_characters > 1:
+    print(error_message_too_many_at)
+    is_valid = False
+
+else:
+    username = email[:position_of_at]
+    domain = email[position_of_at + 1:]
+
+    if username == "":
+        print(error_message_no_username)
+        is_valid = False
+
+    elif domain == "":
+        print(error_message_no_domain)
+        is_valid = False
+
+    elif number_of_dot_characters == 0:
+        print(error_message_no_dot)
+        is_valid = False
+
+    elif "." not in domain:
+        print(error_message_no_dot_in_domain)
+        is_valid = False
+
+    elif domain.endswith("."):
+        print(error_message_no_tld)
+        is_valid = False
+
+    elif len(domain.split(".")[-1]) < 2:
+        print(error_message_short_tld)
+        is_valid = False
+
+    elif username.startswith("."):
+        print(error_message_invalid_username)
+        is_valid = False
+
+    elif domain.startswith("."):
+        print(error_message_no_server_name)
+        is_valid = False
+
+if is_valid:
+    print(ok_message)
